@@ -26,3 +26,9 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}:${{ github.ref_name }}
+
+      - name: Tag GPU alias (identical image — pause has no GPU concern)
+        run: docker tag ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}:${{ github.ref_name }} ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}:${{ github.ref_name }}-gpu
+
+      - name: Push GPU alias
+        run: docker push ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}:${{ github.ref_name }}-gpu
